@@ -1,0 +1,295 @@
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	
++++ b/app/src/main/res/layout/activity_main.xml	(date 1723057339455)
+@@ -11,7 +11,7 @@
+         android:id="@+id/recyclerView"
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+-        android:paddingTop="?attr/actionBarSize"
++        android:paddingTop="0dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="1.0"
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+--- a/app/src/main/res/layout/activity_login.xml	
++++ b/app/src/main/res/layout/activity_login.xml	(date 1723057802216)
+@@ -3,7 +3,26 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="match_parent"
++    android:background="@color/darkBlue"
++    >
++
++
++    <com.example.booklibraryapp.CustomRectangleView
++        android:id="@+id/lb_bg_login"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++
++        android:layout_marginTop="60dp"
++        app:cornerRadius="16dp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.497"
++
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        app:shapeColor="@color/white"
++        app:shapeHeight="100dp"
++        app:shapeWidth="200dp" />
+ 
+     <Button
+         android:id="@+id/register_button"
+Index: app/src/main/res/values/attrs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/attrs.xml b/app/src/main/res/values/attrs.xml
+new file mode 100644
+--- /dev/null	(date 1723052180655)
++++ b/app/src/main/res/values/attrs.xml	(date 1723052180655)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <declare-styleable name="CustomRectangleView">
++        <attr name="shapeColor" format="color" />
++        <attr name="shapeWidth" format="dimension" />
++        <attr name="shapeHeight" format="dimension" />
++        <attr name="cornerRadius" format="dimension" />
++    </declare-styleable>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+--- a/app/src/main/res/values/colors.xml	
++++ b/app/src/main/res/values/colors.xml	(date 1723050076233)
+@@ -2,4 +2,10 @@
+ <resources>
+     <color name="black">#FF000000</color>
+     <color name="white">#FFFFFFFF</color>
++
++    <!-- my colours-->
++    <color name="darkBlue">#1a64bb</color>
++    <color name="lightBlue">#e3f4f3</color>
++    <color name="lightGrey"> #e6e1e1</color>
++
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+--- a/app/src/main/res/values/themes.xml	
++++ b/app/src/main/res/values/themes.xml	(date 1723048765041)
+@@ -1,6 +1,6 @@
+ <resources xmlns:tools="http://schemas.android.com/tools">
+     <!-- Base application theme. -->
+-    <style name="Base.Theme.BookLibraryApp" parent="Theme.Material3.DayNight">
++    <style name="Base.Theme.BookLibraryApp" parent="@style/Theme.AppCompat.DayNight.DarkActionBar">
+         <!-- Customize your light theme here. -->
+         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+     </style>
+Index: app/src/main/res/drawable/login_lb_bg.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/login_lb_bg.xml b/app/src/main/res/drawable/login_lb_bg.xml
+new file mode 100644
+--- /dev/null	(date 1723057802211)
++++ b/app/src/main/res/drawable/login_lb_bg.xml	(date 1723057802211)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape = "rectangle">
++
++    <solid
++        android:color="@color/lightBlue"/>
++    <corners
++        android:radius="40dp"/>
++    
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/java/com/example/booklibraryapp/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/booklibraryapp/LoginActivity.java b/app/src/main/java/com/example/booklibraryapp/LoginActivity.java
+--- a/app/src/main/java/com/example/booklibraryapp/LoginActivity.java	
++++ b/app/src/main/java/com/example/booklibraryapp/LoginActivity.java	(date 1723041439603)
+@@ -66,8 +66,5 @@
+ 
+     }
+ 
+-    public String getLoggedInUserId(){
+-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+-        return sharedPreferences.getString("userId", null);
+-    }
++
+ }
+Index: app/src/main/java/com/example/booklibraryapp/RegisterActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/booklibraryapp/RegisterActivity.java b/app/src/main/java/com/example/booklibraryapp/RegisterActivity.java
+--- a/app/src/main/java/com/example/booklibraryapp/RegisterActivity.java	
++++ b/app/src/main/java/com/example/booklibraryapp/RegisterActivity.java	(date 1723048101896)
+@@ -45,6 +45,8 @@
+                         }
+                         myDB.addUser(user, pass);
+ 
++                        finish();
++
+ 
+                     }
+                     else{
+Index: app/src/main/java/com/example/booklibraryapp/CustomRectangleView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/booklibraryapp/CustomRectangleView.java b/app/src/main/java/com/example/booklibraryapp/CustomRectangleView.java
+new file mode 100644
+--- /dev/null	(date 1723052855897)
++++ b/app/src/main/java/com/example/booklibraryapp/CustomRectangleView.java	(date 1723052855897)
+@@ -0,0 +1,81 @@
++package com.example.booklibraryapp;
++
++import android.content.Context;
++import android.content.res.TypedArray;
++import android.graphics.Canvas;
++import android.graphics.Color;
++import android.graphics.Paint;
++import android.util.AttributeSet;
++import android.view.View;
++
++import androidx.annotation.Nullable;
++
++public class CustomRectangleView extends View {
++
++    private Paint paint;
++    private int shapeColor;
++    private float shapeWidth;
++    private float shapeHeight;
++    private float cornerRadius;
++
++    public CustomRectangleView(Context context) {
++        super(context);
++        init(null);
++    }
++
++    public CustomRectangleView(Context context, @Nullable AttributeSet attrs) {
++        super(context, attrs);
++        init(attrs);
++    }
++
++    public CustomRectangleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
++        super(context, attrs, defStyleAttr);
++        init(attrs);
++    }
++
++    private void init(@Nullable AttributeSet attrs) {
++        paint = new Paint();
++        if (attrs != null) {
++            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CustomRectangleView);
++            shapeColor = typedArray.getColor(R.styleable.CustomRectangleView_shapeColor, Color.RED);
++            shapeWidth = typedArray.getDimension(R.styleable.CustomRectangleView_shapeWidth, 200);
++            shapeHeight = typedArray.getDimension(R.styleable.CustomRectangleView_shapeHeight, 100);
++            cornerRadius = typedArray.getDimension(R.styleable.CustomRectangleView_cornerRadius, 0);
++            typedArray.recycle();
++        }
++        paint.setColor(shapeColor);
++        paint.setStyle(Paint.Style.FILL);
++    }
++
++    @Override
++    protected void onDraw(Canvas canvas) {
++        super.onDraw(canvas);
++        float left = getPaddingLeft();
++        float top = getPaddingTop();
++        float right = left + shapeWidth;
++        float bottom = top + shapeHeight;
++        canvas.drawRoundRect(left, top, right, bottom, cornerRadius, cornerRadius, paint);
++    }
++
++    public void setShapeColor(int color) {
++        shapeColor = color;
++        paint.setColor(color);
++        invalidate();
++    }
++
++    public void setShapeWidth(float width) {
++        shapeWidth = width;
++        requestLayout();
++    }
++
++    public void setShapeHeight(float height) {
++        shapeHeight = height;
++        requestLayout();
++    }
++
++    public void setCornerRadius(float radius) {
++        cornerRadius = radius;
++        invalidate();
++    }
++}
++
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	
++++ b/app/src/main/AndroidManifest.xml	(date 1723048719431)
+@@ -21,21 +21,22 @@
+             android:exported="true"
+             android:parentActivityName=".LoginActivity"
+             android:label="Register">
+-
+-
+         </activity>
+ 
+         <activity android:name=".UpdateActivity"
+             android:parentActivityName=".MainActivity"/>
+ 
+         <activity android:name=".LoginActivity"
+-            android:exported="true">
++                android:exported="true"
++            android:theme= "@style/Theme.AppCompat.DayNight.NoActionBar">
++
+ 
+-        <intent-filter>
+-            <action android:name="android.intent.action.MAIN" />
++                <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
+ 
+-            <category android:name="android.intent.category.LAUNCHER" />
+-        </intent-filter>
++                <category android:name="android.intent.category.LAUNCHER" />
++                </intent-filter>
++
+         </activity>
+ 
+ 

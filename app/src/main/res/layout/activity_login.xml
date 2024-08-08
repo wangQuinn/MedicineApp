@@ -30,11 +30,12 @@
         android:id="@+id/pill_icon"
         android:layout_width="332dp"
         android:layout_height="333dp"
-        android:layout_marginBottom="420dp"
+        android:layout_marginBottom="440dp"
         android:background="@drawable/pill_transformed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent">
 
     </ImageView>
@@ -43,8 +44,8 @@
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="452dp"
-        android:text="DRUGS"
+        android:layout_marginBottom="472dp"
+        android:text="PILLPAL"
         android:textColor="@color/darkBlue"
         android:textSize="40dp"
         android:textStyle="bold"
@@ -72,8 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
 
 
 
@@ -117,25 +118,19 @@
                 android:drawablePadding="8dp"
                 android:background = "@drawable/login_text_bg"
                 android:padding = "10dp"
-                android:layout_marginTop="25dp"/>
+                android:layout_marginTop="22dp"/>
 
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
+                style = "@style/ButtonStyle"
+                android:layout_marginTop="22dp"
                 android:text="Login"
 
-                android:padding="5dp"
-
-                android:layout_marginTop="25dp"
-                android:textStyle="bold"
-                android:textSize="20sp"
-
-                android:backgroundTint="@color/darkBlue"
                 />
 
             <Button
+
                 android:id="@+id/register_button"
                 android:layout_width="wrap_content"
 

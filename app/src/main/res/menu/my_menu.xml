@@ -5,4 +5,5 @@
         android:title = "Delete All"
         android:icon = "@drawable/ic_delete"
         app:showAsAction = "never"/>
+
 </menu>

@@ -1,8 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BookLibraryApp" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.BookLibraryApp" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorAccent">@color/darkBlue</item>
+        <item name = "colorPrimary"> @color/darkBlue </item>
+        <item name="android:windowBackground">@color/darkBlue</item>
     </style>
 
     <style name="ButtonStyle" parent="Theme.Material3.DayNight">

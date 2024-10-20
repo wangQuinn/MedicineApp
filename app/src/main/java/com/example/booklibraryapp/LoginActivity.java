@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isLoggedId = myDB.checkUser(username.getText().toString(), pwd.getText().toString());
+                boolean isLoggedId = myDB.checkUser(username.getText().toString().trim(), pwd.getText().toString().trim());
                 if(isLoggedId){
 
                     //Save the logged-in user's ID
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Aw shuckers you can't login! Double Check :3", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Shiver me timber, aw shuckers you can't login! Double Check :3", Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -29,8 +29,8 @@ public class AddActivity extends AppCompatActivity {
         });
 
         title_input = findViewById(R.id.title_input);
-        author_input = findViewById(R.id.author_input);
-        pages_input = findViewById(R.id.pages_input);
+        author_input = findViewById(R.id.time_input);
+        pages_input = findViewById(R.id.pills_input);
         add_button = findViewById(R.id.add_button);
 
         String userId = getIntent().getStringExtra("USER_ID");

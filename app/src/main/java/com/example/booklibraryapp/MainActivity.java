@@ -29,7 +29,7 @@ import java.util.*;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    FloatingActionButton add_button;
+    FloatingActionButton add_button, calendar_button;
 
     MyDatabaseHelper myDB;
     ArrayList<String> book_id, book_title, book_author, book_pages;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //my stuff
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
+        calendar_button = findViewById(R.id.calendar_button);
         empty_imageView = findViewById(R.id.empty_imageView);
         no_data = findViewById(R.id.no_data);
         add_button.setOnClickListener(new View.OnClickListener(){
@@ -66,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }) ;
+
+        calendar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
 
         myDB = new MyDatabaseHelper(MainActivity.this);
         book_id = new ArrayList<>();

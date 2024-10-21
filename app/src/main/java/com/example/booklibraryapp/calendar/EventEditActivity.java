@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout; // You need this for eventTypeSpecificLayout
+import android.widget.FrameLayout; // i need this for eventTypeSpecificLayout
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -56,7 +56,7 @@ public class EventEditActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedEventType = eventTypes[position];
-                showEventTypeSpecificUI(selectedEventType);  // Call the function to display the correct layout
+                showEventUI(selectedEventType);  // Call the function to display the correct layout
             }
 
             @Override
@@ -66,7 +66,7 @@ public class EventEditActivity extends AppCompatActivity {
         });
     }
 
-    private void showEventTypeSpecificUI(String eventType) {
+    private void showEventUI(String eventType) {
         eventTypeSpecificLayout.removeAllViews(); // Clear previous UI
 
         // Show specific UI based on selected event type
@@ -82,6 +82,9 @@ public class EventEditActivity extends AppCompatActivity {
             // Inflate and add the specific layout for Appointment Event
             View appointmentView = getLayoutInflater().inflate(R.layout.layout_appointment_event, null);
             eventTypeSpecificLayout.addView(appointmentView);
+
+
+
         }
     }
 
@@ -95,10 +98,12 @@ public class EventEditActivity extends AppCompatActivity {
         } else if ("RefillEvent".equals(selectedEventType)) {
             newEvent = new RefillEvent(eventName, CalendarUtils.selectedDate, time);
         } else { // AppointmentEvent
-            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time);
+            String location = findViewById(R.id.locationEdit).toString();
+
+            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, location);
         }
 
-        Event.eventsList.add(newEvent);  // Add the new event to the event list
+        Event.eventsList.add(newEvent);  //
         finish();
     }
 }

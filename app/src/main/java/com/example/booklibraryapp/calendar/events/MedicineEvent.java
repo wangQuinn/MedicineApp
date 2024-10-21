@@ -8,9 +8,13 @@ import java.time.LocalTime;
 public class MedicineEvent extends Event {
 
 
+
+
     public MedicineEvent(String name, LocalDate date, LocalTime time) {
         super(name, date, time);
     }
+
+
 
     @Override
     public String getEventType() {

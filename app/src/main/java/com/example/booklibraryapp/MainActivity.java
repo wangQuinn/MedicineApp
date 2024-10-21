@@ -22,7 +22,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.booklibraryapp.calendar.CalendarActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.*;
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+                Intent intent = new Intent(MainActivity.this, WeekViewActivity.class);
                 startActivity(intent);
             }
         });

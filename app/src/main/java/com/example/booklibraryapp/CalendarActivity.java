@@ -1,4 +1,4 @@
-package com.example.booklibraryapp.calendar;
+package com.example.booklibraryapp;
 
 
 import static com.example.booklibraryapp.calendar.CalendarUtils.dateFormatter;
@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.booklibraryapp.R;
-import com.example.booklibraryapp.WeekViewActivity;
+import com.example.booklibraryapp.calendar.CalendarAdapter;
+import com.example.booklibraryapp.calendar.CalendarUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 CalendarActivity, to control everything to do with CalendarView.
 
  */
-public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;

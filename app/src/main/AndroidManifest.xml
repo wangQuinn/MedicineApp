@@ -17,7 +17,7 @@
         android:theme="@style/Theme.BookLibraryApp"
         tools:targetApi="31">
         <activity
-            android:name=".EventEditActivity"
+            android:name=".calendar.EventEditActivity"
             android:exported="false" />
         <activity
             android:name=".WeekViewActivity"
@@ -50,7 +50,7 @@
             android:exported="true"
             android:label="Pill Pal" />
         <activity
-            android:name=".CalendarActivity"
+            android:name=".calendar.CalendarActivity"
             android:exported="true"
             android:label="Calendar"
             android:parentActivityName=".MainActivity" />

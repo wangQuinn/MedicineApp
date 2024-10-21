@@ -1,12 +1,14 @@
-package com.example.booklibraryapp;
+package com.example.booklibraryapp.calendar;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Event {
+public abstract class Event {
 
     public static ArrayList<Event> eventsList = new ArrayList<>();
+
+    public abstract String getEventType();
     public static ArrayList<Event> eventsForDate(LocalDate date){
         ArrayList<Event> events = new ArrayList<>();
 

@@ -1,11 +1,12 @@
-package com.example.booklibraryapp;
+package com.example.booklibraryapp.calendar;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.booklibraryapp.R;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

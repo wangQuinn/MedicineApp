@@ -1,23 +1,23 @@
-package com.example.booklibraryapp;
+package com.example.booklibraryapp.calendar;
 
 
-import static com.example.booklibraryapp.CalendarUtils.dateFormatter;
-import static com.example.booklibraryapp.CalendarUtils.daysInMonthArray;
+import static com.example.booklibraryapp.calendar.CalendarUtils.dateFormatter;
+import static com.example.booklibraryapp.calendar.CalendarUtils.daysInMonthArray;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booklibraryapp.R;
+import com.example.booklibraryapp.WeekViewActivity;
+
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /*

@@ -24,10 +24,12 @@ public abstract class Event {
     private LocalDate date;
     private LocalTime time;
 
+
     public Event(String name, LocalDate date, LocalTime time) {
         this.date = date;
         this.name = name;
         this.time = time;
+
     }
 
     public LocalDate getDate() {
@@ -53,4 +55,6 @@ public abstract class Event {
     public void setTime(LocalTime time) {
         this.time = time;
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.booklibraryapp;
+package com.example.booklibraryapp.calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

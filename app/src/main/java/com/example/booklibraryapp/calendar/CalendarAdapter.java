@@ -1,4 +1,4 @@
-package com.example.booklibraryapp;
+package com.example.booklibraryapp.calendar;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.booklibraryapp.R;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

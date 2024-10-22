@@ -22,7 +22,7 @@ import com.example.booklibraryapp.calendar.EventEditActivity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class WeekViewActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class WeekViewActivity extends AppCompatActivity implements OnItemListener{
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;

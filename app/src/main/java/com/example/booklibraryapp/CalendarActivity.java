@@ -24,7 +24,7 @@ import java.util.ArrayList;
 CalendarActivity, to control everything to do with CalendarView.
 
  */
-public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
+public class CalendarActivity extends AppCompatActivity implements OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;

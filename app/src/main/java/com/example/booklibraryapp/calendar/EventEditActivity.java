@@ -69,23 +69,23 @@ public class EventEditActivity extends AppCompatActivity {
     private void showEventUI(String eventType) {
         eventTypeSpecificLayout.removeAllViews(); // Clear previous UI
 
+        int layoutResId = R.layout.layout_medicine_event;
+
         // Show specific UI based on selected event type
         if ("MedicineEvent".equals(eventType)) {
-            // Inflate and add the specific layout for Medicine Event
-            View medicineView = getLayoutInflater().inflate(R.layout.layout_medicine_event, null);
-            eventTypeSpecificLayout.addView(medicineView);
+            layoutResId = MedicineEvent.getEventLayout();
         } else if ("RefillEvent".equals(eventType)) {
-            // Inflate and add the specific layout for Refill Event
-            View refillView = getLayoutInflater().inflate(R.layout.layout_refill_event, null);
-            eventTypeSpecificLayout.addView(refillView);
+            layoutResId = RefillEvent.getEventLayout();
         } else if ("AppointmentEvent".equals(eventType)) {
-            // Inflate and add the specific layout for Appointment Event
-            View appointmentView = getLayoutInflater().inflate(R.layout.layout_appointment_event, null);
-            eventTypeSpecificLayout.addView(appointmentView);
+            layoutResId = AppointmentEvent.getEventLayout();
 
 
 
         }
+
+
+        View eventView = getLayoutInflater().inflate(layoutResId, null);
+        eventTypeSpecificLayout.addView(eventView);
     }
 
     public void saveEventAction(View view) {
@@ -94,13 +94,18 @@ public class EventEditActivity extends AppCompatActivity {
         // Depending on the selected event type, instantiate the appropriate event class
         Event newEvent;
         if ("MedicineEvent".equals(selectedEventType)) {
-            newEvent = new MedicineEvent(eventName, CalendarUtils.selectedDate, time);
+            String frequency = findViewById(R.id.frequencyEdit).toString();
+            String notes = findViewById(R.id.medicineNotesEdit).toString();
+            newEvent = new MedicineEvent(eventName, CalendarUtils.selectedDate, time, frequency, notes);
         } else if ("RefillEvent".equals(selectedEventType)) {
-            newEvent = new RefillEvent(eventName, CalendarUtils.selectedDate, time);
+            String location = findViewById(R.id.locationRefillEdit).toString();
+            String insurance = findViewById(R.id.insuranceEdit).toString();
+            newEvent = new RefillEvent(eventName, CalendarUtils.selectedDate, time, location, insurance);
         } else { // AppointmentEvent
             String location = findViewById(R.id.locationEdit).toString();
+            String doctor = findViewById(R.id.doctorEdit).toString();
 
-            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, location);
+            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, doctor, location);
         }
 
         Event.eventsList.add(newEvent);  //

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booklibraryapp.OnItemListener;
 import com.example.booklibraryapp.R;
 
 import java.time.LocalDate;
@@ -57,10 +58,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         return days.size();
     }
 
-    public interface OnItemListener
-    {
-        void onItemClick(int position, LocalDate date);
-    }
+
 
 }
 

@@ -8,7 +8,6 @@ import java.time.LocalTime;
 
 public class MedicineEvent extends Event {
 
-
     private String frequency;
     private String notes;
 

@@ -1,9 +1,12 @@
 package com.example.booklibraryapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,13 +31,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.*;
 
+/*
+MainActivity, the main screen a user sees after login.
+
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton add_button, calendar_button;
 
     MyDatabaseHelper myDB;
-    ArrayList<String> book_id, book_title, book_author, book_pages;
+    ArrayList<String> book_id, book_title, book_author, book_pages; //for SQL database
     CustomAdapter customAdapter;
 
     ImageView empty_imageView;
@@ -49,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        createNotificationChannel("addNotif", "addMedication", "You've added 1 medicine!");
 
         //my stuff
         recyclerView = findViewById(R.id.recyclerView);
@@ -64,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 intent.putExtra("USER_ID", userId);
                 startActivity(intent);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "addNotif");
+                builder.setContentTitle("YOU'VE ADDED ONE MEDICATION");
+
+
+
             }
 
         }) ;
@@ -171,4 +187,19 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         return sharedPreferences.getString("USER_ID", null);
     }
+
+    private void createNotificationChannel(String CHANNEL_ID, String name, String description) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is not in the Support Library.
+        if (Build.VERSION.SDK_INT >= 26) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this.
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }

@@ -1,7 +1,10 @@
 package com.example.booklibraryapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -15,13 +18,13 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, pwd;
     MyDatabaseHelper myDB;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         myDB = new MyDatabaseHelper(this);
+
+
 
         username = findViewById(R.id.userName_l);
         pwd = findViewById(R.id.passWord_l);
@@ -69,5 +72,6 @@ public class LoginActivity extends AppCompatActivity {
     public String getLoggedInUserId(){
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         return sharedPreferences.getString("userId", null);
-    }
-}
+    }}
+
+

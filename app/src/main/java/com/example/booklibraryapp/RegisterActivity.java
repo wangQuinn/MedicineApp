@@ -3,6 +3,7 @@ package com.example.booklibraryapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 
 import androidx.annotation.Nullable;
@@ -15,6 +16,8 @@ public class RegisterActivity extends AppCompatActivity {
     Button register_button, go_to_login_button;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.cream));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -24,7 +27,10 @@ public class RegisterActivity extends AppCompatActivity {
         password_text = findViewById(R.id.passWord_text);
         reTypeP_text = findViewById(R.id.retypeP_text);
         register_button = findViewById(R.id.register_finish_button);
-
+        go_to_login_button = findViewById(R.id.register_to_login_button);
+        //change pwd text to asteriks
+        EditText edittext = (EditText)findViewById(R.id.passWord_text);
+        edittext.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +50,9 @@ public class RegisterActivity extends AppCompatActivity {
                             return;
                         }
                         myDB.addUser(user, pass);
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+
 
 
                     }
@@ -51,6 +60,15 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Passwords did not match", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        go_to_login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+
             }
         });
 

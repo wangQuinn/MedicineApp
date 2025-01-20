@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+
+
+    <color name="black">#3E3C34</color>
     <color name="white">#FFFFFFFF</color>
     <color name = "darkBlue"> #1a64bb </color>
     <color name = "lightBlue"> #e3f4f3 </color>
     <color name = "lightGray"> #e6e1e1 </color>
+
+    <color name="cream">#FEFAEF</color>
+    <color name="mutedOrange">#F6A474</color>
+    <color name="mutedGreen">#AED7B9</color>
+    <color name="mutedPurple">#CDB7DD</color>
+    <color name="mutedRed">#F1A397</color>
+    <color name="mutedYellow">#FDCC66</color>
+
+
+
+
+
 </resources>

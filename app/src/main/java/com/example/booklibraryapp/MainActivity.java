@@ -1,11 +1,15 @@
 package com.example.booklibraryapp;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,12 +17,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import android.Manifest;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
@@ -37,6 +43,11 @@ MainActivity, the main screen a user sees after login.
  */
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String CHANNEL_ID = "my_channel";
+    private static final String NOTIFICATION_ID = "1";
+
+    private NotificationManagerCompat notificationManager;
 
     RecyclerView recyclerView;
     FloatingActionButton add_button, calendar_button;
@@ -59,24 +70,25 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        createNotificationChannel("addNotif", "addMedication", "You've added 1 medicine!");
+
 
         //my stuff
+
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
         calendar_button = findViewById(R.id.calendar_button);
         empty_imageView = findViewById(R.id.empty_imageView);
         no_data = findViewById(R.id.no_data);
+        notificationManager = NotificationManagerCompat.from(this);
+        createNotificationChannel();
         add_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 String userId = getLoggedInUserId();
-
+                showNotification(view);
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 intent.putExtra("USER_ID", userId);
                 startActivity(intent);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "addNotif");
-                builder.setContentTitle("YOU'VE ADDED ONE MEDICATION");
 
 
 
@@ -188,18 +200,64 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getString("USER_ID", null);
     }
 
-    private void createNotificationChannel(String CHANNEL_ID, String name, String description) {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is not in the Support Library.
-        if (Build.VERSION.SDK_INT >= 26) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this.
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+    private void showNotification(View view) {
+        Intent intent = new Intent(this, MainActivity.class); // intent message of an operation to be perform. aka launch activity
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE); // setGlags preserves the user's expected navigation experience after they open your app using the notification.
+
+        NotificationCompat.Builder builder = null;
+
+
+
+        builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("It's time to take your medication.")
+                .setContentText("Take your medication now.")
+                .setColor(Color.BLUE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setFullScreenIntent(pendingIntent, true)
+                .setSmallIcon(R.drawable.baseline_notification_important_24)
+                .setAutoCancel(true);
+
+
+
+        Notification notification;
+        notification = builder.build();
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
         }
+        else{
+            notificationManager.notify(Integer.parseInt(NOTIFICATION_ID), notification);
+        }
+
+
+
+
+
+    }
+
+    //check if the version is greater than 29 and
+    private void createNotificationChannel(){
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+
+        // Delete existing channel if it exists
+        if (notificationManager.getNotificationChannel(CHANNEL_ID) != null) {
+            notificationManager.deleteNotificationChannel(CHANNEL_ID);
+        }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            CharSequence channelName = "My Channel";
+            String channelDescription = "My Channel Description";
+
+            int importance = NotificationManager.IMPORTANCE_HIGH; // = 4 (because it needs to be heads-up)
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, importance);
+            channel.setDescription(channelDescription);
+
+            notificationManager.createNotificationChannel(channel);
+
+        }
+
     }
 
 }

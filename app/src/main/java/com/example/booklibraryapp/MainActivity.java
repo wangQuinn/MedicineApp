@@ -30,9 +30,11 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.*;
@@ -117,6 +119,28 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        Fragment firstFragment = new FirstFragment();
+        Fragment secondFragment = new SecondFragment();
+        Fragment thirdFragment = new ThirdFragment();
+
+        setCurrentFragment(firstFragment);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case 1000038:
+                    setCurrentFragment(firstFragment);
+                    break;
+                case 1000011:
+                    setCurrentFragment(secondFragment);
+                    break;
+                case 1000036:
+                    setCurrentFragment(thirdFragment);
+                    break;
+            }
+            return true;
+        });
 
     }
 
@@ -258,6 +282,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void setCurrentFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flFragment, fragment)
+                .commit();
     }
 
 }

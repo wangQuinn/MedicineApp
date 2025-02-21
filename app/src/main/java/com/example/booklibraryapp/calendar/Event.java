@@ -13,13 +13,15 @@ public abstract class Event {
     //initialize variables
     private String name;
     private LocalDate date;
-    private LocalTime time;
+    private String time;
+    private String notes;
 
     //constructor
-    public Event(String name, LocalDate date, LocalTime time) {
+    public Event(String name, LocalDate date, String time, String notes) {
         this.date = date;
         this.name = name;
         this.time = time;
+        this.notes = notes;
 
     }
 
@@ -59,12 +61,16 @@ public abstract class Event {
     }
 
     //Time
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
+
+    public String getNotes(){ return notes; }
+    public void setNotes(String notes) {
+        this.notes = notes;}
 
 
 }

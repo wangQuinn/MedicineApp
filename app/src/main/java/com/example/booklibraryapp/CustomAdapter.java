@@ -84,10 +84,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            book_id_txt = itemView.findViewById(R.id.book_id_txt);
-            book_title_txt = itemView.findViewById(R.id.book_title_txt);
-            book_author_txt = itemView.findViewById(R.id.book_author_txt);
-            book_pages_txt = itemView.findViewById(R.id.book_pages_txt);
+            book_id_txt = itemView.findViewById(R.id.medicine_id_txt);
+            book_title_txt = itemView.findViewById(R.id.medicine_title_txt);
+            book_author_txt = itemView.findViewById(R.id.medicine_subText_txt);
+            book_pages_txt = itemView.findViewById(R.id.medicine_pills_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
 
             //Animate Recycler View

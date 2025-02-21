@@ -4,15 +4,14 @@ import com.example.booklibraryapp.R;
 import com.example.booklibraryapp.calendar.Event;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class RefillEvent extends Event {
 
     private String location;
     private String insurance;
 
-    public RefillEvent(String name, LocalDate date, LocalTime time, String location, String insurance) {
-        super(name, date, time);
+    public RefillEvent(String name, LocalDate date, String time, String location, String insurance) {
+        super(name, date, time, insurance);
         this.location = location;
         this.insurance = insurance;
     }

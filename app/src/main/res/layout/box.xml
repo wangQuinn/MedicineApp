@@ -8,23 +8,13 @@
     android:background="@drawable/eventbg">
 
     <!-- Colored Indicator on the left -->
-    <View
-        android:id="@+id/eventSidebar"
-        android:layout_width="20dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/eventsidebar"
-
-
-        />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginHorizontal="15dp"
-
-
+        android:layout_marginHorizontal="20dp"
+        android:paddingLeft="10dp"
 
 
         android:layout_marginTop="20dp"
@@ -34,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:id="@+id/eventCellTV"
+            android:id="@+id/medicineCellTV"
 
             android:layout_gravity="left"
             android:textColor="@color/black"
@@ -46,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:id="@+id/eventNoteTV"
+            android:id="@+id/medicineInformationTV"
 
             android:layout_gravity="left"
             android:textColor="@color/black"

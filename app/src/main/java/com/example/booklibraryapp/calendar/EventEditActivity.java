@@ -1,13 +1,17 @@
 package com.example.booklibraryapp.calendar;
 
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout; // i need this for eventTypeSpecificLayout
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,15 +21,17 @@ import com.example.booklibraryapp.calendar.events.MedicineEvent;
 import com.example.booklibraryapp.calendar.events.RefillEvent;
 
 import java.time.LocalTime;
+import java.util.Locale;
 
 public class EventEditActivity extends AppCompatActivity {
 
-    private EditText eventNameET;
+    private EditText eventNameET, medicineET;
     private TextView eventDateTV, eventTimeTV;
     private String selectedEventType;
-    private FrameLayout eventTypeSpecificLayout;  // The layout for adding specific UI components
-
-    private LocalTime time;
+    private FrameLayout eventTypeSpecificLayout;// The layout for adding specific UI components
+    private Button timeButton;
+    private String time;
+    int hour, minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +39,17 @@ public class EventEditActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_event_edit);
         initWidgets();
-        time = LocalTime.now();
+        time = "00:00";
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
+        //eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
     }
 
     private void initWidgets() {
         eventNameET = findViewById(R.id.eventNameET);
+
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
+        timeButton = findViewById(R.id.timeButton);
         eventTypeSpecificLayout = findViewById(R.id.eventTypeSpecificLayout); // dynamic layout
 
         // Spinner (drop-down box) for selecting event types
@@ -95,20 +103,47 @@ public class EventEditActivity extends AppCompatActivity {
         Event newEvent;
         if ("MedicineEvent".equals(selectedEventType)) {
             String frequency = findViewById(R.id.frequencyEdit).toString();
-            String notes = findViewById(R.id.medicineNotesEdit).toString();
+            EditText notes1 = findViewById(R.id.medicineNotesEdit);
+            String notes = notes1.getText().toString();
             newEvent = new MedicineEvent(eventName, CalendarUtils.selectedDate, time, frequency, notes);
         } else if ("RefillEvent".equals(selectedEventType)) {
             String location = findViewById(R.id.locationRefillEdit).toString();
-            String insurance = findViewById(R.id.insuranceEdit).toString();
+            EditText insurance1 = findViewById(R.id.insuranceEdit);
+            String insurance = "Under " + insurance1.getText().toString() + "Insurance";
             newEvent = new RefillEvent(eventName, CalendarUtils.selectedDate, time, location, insurance);
         } else { // AppointmentEvent
-            String location = findViewById(R.id.locationEdit).toString();
-            String doctor = findViewById(R.id.doctorEdit).toString();
+            EditText location1 = findViewById(R.id.locationEdit);
 
-            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, doctor, location);
+            EditText doctor1 = findViewById(R.id.doctorEdit);
+            String doctor = "At " + location1.getText().toString() + "with" +  doctor1.getText().toString();
+
+
+
+            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, doctor, location1.getText().toString());
         }
 
         Event.eventsList.add(newEvent);  //
         finish();
+    }
+
+    //timepicker
+
+    public void popTimePicker(View view) {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int sHour, int sMinute) {
+                hour = sHour;
+                minute = sMinute;
+                time =String.format(Locale.getDefault(), "%02d:%02d", hour, minute );
+                eventTimeTV.setText(time);
+                            }
+        };
+
+
+            int style = android.R.style.Theme_Holo_Light_Dialog_NoActionBar;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, minute, true );
+
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
     }
 }

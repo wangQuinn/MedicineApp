@@ -4,15 +4,14 @@ import com.example.booklibraryapp.R;
 import com.example.booklibraryapp.calendar.Event;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class AppointmentEvent extends Event {
 
     private String doctor;
     private String location;
 
-    public AppointmentEvent(String name, LocalDate date, LocalTime time, String doctor, String location) {
-        super(name, date, time);
+    public AppointmentEvent(String name, LocalDate date, String time, String doctor, String location) {
+        super(name, date, time, doctor);
         this.doctor = doctor;
         this.location = location;
     }

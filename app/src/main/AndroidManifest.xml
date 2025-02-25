@@ -25,7 +25,8 @@
             android:name=".WeekViewActivity"
 
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/mainActivityToolBar"/>
         <activity
             android:name=".RegisterActivity"
             android:exported="true"

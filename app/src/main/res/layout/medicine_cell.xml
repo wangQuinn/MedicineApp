@@ -1,5 +1,4 @@
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -8,7 +7,13 @@
     android:background="@drawable/eventbg">
 
     <!-- Colored Indicator on the left -->
+    <View
+        android:id="@+id/eventTitleSidebar"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/eventsidebar"
 
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

@@ -4,8 +4,11 @@ import static com.example.booklibraryapp.calendar.CalendarUtils.dateFormatter;
 import static com.example.booklibraryapp.calendar.CalendarUtils.daysInWeekArray;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +35,12 @@ public class WeekViewActivity extends AppCompatActivity implements OnItemListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
         initWidgets();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.mutedYellow));
+        }
         if (CalendarUtils.selectedDate == null) {
             CalendarUtils.selectedDate = LocalDate.now();  // Set to current date if not already set
         }

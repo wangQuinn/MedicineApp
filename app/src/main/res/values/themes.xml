@@ -15,6 +15,13 @@
 
     </style>
 
+    <style name="mainActivityToolBar" parent = "Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary"> @color/mutedGreen</item>
+        <item name="android:windowBackground"> @color/cream </item>
+        <item  name = "android:statusBarColor"> @color/mutedGreen</item>
+
+    </style>
+
     <style name="noActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/mutedYellow</item>
         <item name="colorAccent">@color/mutedPurple</item>
@@ -65,5 +72,31 @@
         <item name = "android:alpha"> 0.5 </item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name = "android:textSize"> 20sp </item>
+        <item name = "android:ems"> 10 </item>
+        <item name = "android:layout_height"> 50dp </item>
+        <item name = "android:layout_width"> match_parent </item>
+        <item name = "android:alpha"> .5 </item>
+        <item name = "android:background"> @drawable/login_text_bg </item>
+        <item name = "android:backgroundTint"> @color/mutedGreen </item>
+        <item name = "android:layout_marginTop"> 20dp </item>
+        <item name = "android:inputType"> text </item>
+        <item name = "android:fontFamily"> monospace</item>
+        <item name = "android:editTextColor"> @color/black </item>
+        <item name = "android:padding"> 10dp </item>
+
+
+    </style>
+
+    <style name="plainTextStyle">
+
+        <item name = "android:textAlignment"> gravity </item>
+        <item name = "android:textColor"> </item>
+        <item name = "android:gravity"> left</item>
+        <item name = "android:textSize">20dp </item>
+
     </style>
 </resources>

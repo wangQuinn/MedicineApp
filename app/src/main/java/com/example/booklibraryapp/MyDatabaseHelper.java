@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,9 +17,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "My_Library";
     private static final String Column_ID = "_id";
-    private static final String Column_TITLE = "book_title";
-    private static final String Column_AUTHOR = "book_author";
-    private static final String Column_PAGES = "book_pages";
+    private static final String Column_TITLE = "medicine_title";
+    private static final String Column_MEALTIME = "mealtime";
+    private static final String Column_DOSAGE = "dosage";
+    private static final String Column_PILLS = "number_of_pills";
     private static final String Column_USERID = "user_id";//encapsulation!
 
     private static final String USER_TABLE = "Users";
@@ -38,8 +38,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + TABLE_NAME +
                         " (" + Column_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         Column_TITLE + " TEXT, " +
-                        Column_AUTHOR + " TEXT, " +
-                        Column_PAGES + " INTEGER, " +
+                        Column_MEALTIME + " TEXT, " +
+                        Column_PILLS + " INTEGER, " +
+
                         Column_USERID + " TEXT, " + // the column user_id will use the username as an individual unique id to find what is needed to display, etc..
                         "FOREIGN KEY" + "(" + Column_USERID + ")" +  "REFERENCES " + USER_TABLE + "(" + Column_USER + "));"; //all SQL commands are written in plain text, so all commands have to be in strings!
         String query2 =
@@ -67,8 +68,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
         cv.put(Column_TITLE, title);
-        cv.put(Column_AUTHOR, author);
-        cv.put(Column_PAGES, pages);
+        cv.put(Column_MEALTIME, author);
+        cv.put(Column_PILLS, pages);
         cv.put(Column_USERID, userId);
 
         long result = db.insert(TABLE_NAME, null, cv);
@@ -100,8 +101,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(Column_TITLE, title);
-        cv.put(Column_AUTHOR, author);
-        cv.put(Column_PAGES, pages);
+        cv.put(Column_MEALTIME, author);
+        cv.put(Column_PILLS, pages);
 
         long result = db.update(TABLE_NAME, cv, "_id =?", new String[] {row_id});
         if(result == -1){

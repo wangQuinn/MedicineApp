@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         //my stuff
 
         recyclerView = findViewById(R.id.recyclerView);
-        add_button = findViewById(R.id.add_button);
-        calendar_button = findViewById(R.id.calendar_button);
+        //add_button = findViewById(R.id.add_button);
+        //calendar_button = findViewById(R.id.calendar_button);
         empty_imageView = findViewById(R.id.empty_imageView);
         no_data = findViewById(R.id.no_data);
         notificationManager = NotificationManagerCompat.from(this);
@@ -97,30 +97,30 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        add_button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                String userId = getLoggedInUserId();
-                showNotification(view);
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("USER_ID", userId);
-                startActivity(intent);
-
-
-
-            }
-
-        }) ;
-
-        calendar_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                Intent intent = new Intent(MainActivity.this, WeekViewActivity.class);
-                startActivity(intent);
-            }
-        });
+//        add_button.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                String userId = getLoggedInUserId();
+//                showNotification(view);
+//                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+//                intent.putExtra("USER_ID", userId);
+//                startActivity(intent);
+//
+//
+//
+//            }
+//
+//        }) ;
+//
+//        calendar_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                Intent intent = new Intent(MainActivity.this, WeekViewActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         myDB = new MyDatabaseHelper(MainActivity.this);
         book_id = new ArrayList<>();
@@ -135,26 +135,31 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        Fragment firstFragment = new FirstFragment();
-        Fragment secondFragment = new SecondFragment();
-        Fragment thirdFragment = new ThirdFragment();
 
-        setCurrentFragment(firstFragment);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                return true;
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case 1000038:
-                    setCurrentFragment(firstFragment);
-                    break;
-                case 1000011:
-                    setCurrentFragment(secondFragment);
-                    break;
-                case 1000036:
-                    setCurrentFragment(thirdFragment);
-                    break;
             }
-            return true;
+            else if (itemId == R.id.nav_calendar){
+                startActivity(new Intent(MainActivity.this, WeekViewActivity.class));
+                return true;
+
+            }
+
+            else if (itemId == R.id.nav_add) {
+                String userId = getLoggedInUserId();
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("USER_ID", userId);
+                startActivity(intent);
+                return true;
+            }
+            return false;
         });
+
+       // bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
     }
 

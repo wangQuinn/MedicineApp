@@ -52,6 +52,7 @@
             android:name=".AddActivity"
             android:exported="false"
             android:label="Add Book"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"

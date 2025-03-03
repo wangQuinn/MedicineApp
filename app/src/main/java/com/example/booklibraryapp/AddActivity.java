@@ -2,6 +2,7 @@ package com.example.booklibraryapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.*; // adds all widgets
 
@@ -14,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class AddActivity extends AppCompatActivity {
 
     //adding objects from UI
-    EditText title_input, author_input, pages_input;
+    EditText title_input, time_input, pills_input;
     Button add_button;
 
     @Override
@@ -29,11 +30,13 @@ public class AddActivity extends AppCompatActivity {
         });
 
         title_input = findViewById(R.id.title_input);
-        author_input = findViewById(R.id.time_input);
-        pages_input = findViewById(R.id.pills_input);
+        time_input = findViewById(R.id.time_input);
+        pills_input = findViewById(R.id.pills_input);
         add_button = findViewById(R.id.add_button);
 
         String userId = getIntent().getStringExtra("USER_ID");
+        Log.d("AddActivity", "Received USER_ID: " + userId);
+
 
         add_button.setOnClickListener(new View.OnClickListener(){
             @Override //abstract classes waho!!
@@ -41,8 +44,8 @@ public class AddActivity extends AppCompatActivity {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
                 myDB.addBook(
                         title_input.getText().toString().trim(),
-                        author_input.getText().toString().trim(),
-                        Integer.parseInt(pages_input.getText().toString().trim()),
+                        time_input.getText().toString().trim(),
+                        Integer.parseInt(pills_input.getText().toString().trim()),
                         userId);
                 Intent intent = new Intent(AddActivity.this, MainActivity.class);
                 startActivity(intent);

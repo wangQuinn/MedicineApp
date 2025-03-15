@@ -42,7 +42,7 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //after this
                 MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
-                myDB.updateData(id, title_input.getText().toString().trim(), author_input.getText().toString().trim(), pages_input.getText().toString().trim());
+                myDB.updateData(id, title_input.getText().toString().trim(), author_input.getText().toString().trim(), pages_input.getText().toString().trim(), "", "", "", "", "");
                 finish();
             }
         });

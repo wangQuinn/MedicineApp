@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
 //        add_button.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View view){
@@ -303,11 +305,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.flFragment, fragment)
-                .commit();
-    }
+
 
 }

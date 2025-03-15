@@ -22,8 +22,8 @@ public abstract class Event {
         this.name = name;
         this.time = time;
         this.notes = notes;
-
     }
+
 
     //abstract classes
     public abstract String getEventType();

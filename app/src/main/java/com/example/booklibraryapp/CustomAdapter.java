@@ -49,8 +49,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomAdapter.MyViewHolder holder, final int position) {
-        holder.book_id_txt.setText(String.valueOf(book_id.get(position)));
+    public void onBindViewHolder(@NonNull CustomAdapter.MyViewHolder holder, int position) {
+       // holder.book_id_txt.setText(String.valueOf(book_id.get(position)));
         holder.book_title_txt.setText(String.valueOf(book_title.get(position)));
         holder.book_author_txt.setText(String.valueOf(book_author.get(position)));
         holder.book_pages_txt.setText(String.valueOf(book_pages.get(position)));
@@ -84,7 +84,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            book_id_txt = itemView.findViewById(R.id.medicine_id_txt);
+            //book_id_txt = itemView.findViewById(R.id.medicine_id_txt);
             book_title_txt = itemView.findViewById(R.id.medicine_title_txt);
             book_author_txt = itemView.findViewById(R.id.medicine_subText_txt);
             book_pages_txt = itemView.findViewById(R.id.medicine_pills_txt);

@@ -21,6 +21,7 @@ import com.example.booklibraryapp.calendar.events.MedicineEvent;
 import com.example.booklibraryapp.calendar.events.RefillEvent;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class EventEditActivity extends AppCompatActivity {
@@ -120,6 +121,10 @@ public class EventEditActivity extends AppCompatActivity {
 
 
             newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, doctor, location1.getText().toString());
+        }
+
+        if (Event.eventsList == null) {
+            Event.eventsList = new ArrayList<>();  // Initialize the list if it's null
         }
 
         Event.eventsList.add(newEvent);  //

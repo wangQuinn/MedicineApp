@@ -11,9 +11,16 @@
         <item name= "android:fontFamily"> monospace</item>
         <item name = "android:textAllCaps" > false </item>
 
-
-
     </style>
+    <style name = "AddActivity" parent ="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:statusBarColor"> @color/mutedRed</item>
+        <item name = "colorPrimaryDark"> @color/mutedRed</item>
+        <item  name = "colorPrimary"> @color/mutedRed </item>
+        <item name="colorAccent"> @color/mutedRed</item>
+
+        
+    </style>
+    
 
     <style name="mainActivityToolBar" parent = "Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary"> @color/mutedGreen</item>
@@ -41,11 +48,12 @@
 
         <item name="android:textColor">@color/cream</item>
         <item name ="android:layout_width" > match_parent </item>
-        <item name ="android:layout_height" > 50dp </item>
-        <item name ="android:textStyle" > normal </item>
-        <item name ="android:textSize" > 17sp </item>
+        <item name ="android:layout_height" > 60dp </item>
+        <item name ="android:textStyle" > bold </item>
+        <item name ="android:textSize" > 18sp </item>
         <item name = "android:fontFamily"> monospace</item>
         <item name = "android:textAllCaps" > false </item>
+
         <item name ="android:backgroundTint" > @color/black </item>
         <item name = "android:gravity"> center</item>
 
@@ -98,5 +106,15 @@
         <item name = "android:gravity"> left</item>
         <item name = "android:textSize">20dp </item>
 
+    </style>
+
+    <style name= "AddEditBox">
+        <item name = "android:background"> @color/white</item>
+        <item name = "android:padding"> 10dp </item>
+        <item name = "android:textStyle"> bold</item>
+        <item name="android:textSize"> 18dp </item>
+        <item name = "android:textColor"> @color/black</item>
+        <item name = "android:textColorHint"> @color/mutedRed </item>
+        <item name = "android:inputType"> text</item>
     </style>
 </resources>

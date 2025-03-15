@@ -39,9 +39,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booklibraryapp.calendar.Event;
+import com.example.booklibraryapp.calendar.EventLinkedList;
+import com.example.booklibraryapp.calendar.events.MedicineEvent;
+import com.example.booklibraryapp.calendar.events.RefillEvent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /*
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     MyDatabaseHelper myDB;
     ArrayList<String> book_id, book_title, book_author, book_pages; //for SQL database
     CustomAdapter customAdapter;
-
     ImageView empty_imageView;
     TextView no_data;
 
@@ -97,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
 //        add_button.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View view){
@@ -128,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         book_author = new ArrayList<>();
         book_pages = new ArrayList<>();
 
+        myDB.addMedicationTagAssociation(232,22);
+        myDB.deleteMedicationTagAssociation(232,22);
         storeDataInArrays();
         customAdapter = new CustomAdapter(MainActivity.this,this, book_id, book_title, book_author, book_pages);
         recyclerView.setAdapter(customAdapter);
@@ -303,11 +311,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.flFragment, fragment)
-                .commit();
-    }
+
 
 }

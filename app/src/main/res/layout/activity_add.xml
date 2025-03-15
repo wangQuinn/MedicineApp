@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddActivity"
-    android:background="@color/cream"
+    android:background="#FBECE8"
 
     >
 
@@ -31,50 +31,207 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="54dp"
-                android:layout_height="48dp"
-                android:background="@drawable/baseline_medical_information_24"
-                android:backgroundTint="@color/mutedRed"/>
+            
 
             <EditText
-                android:gravity="center_horizontal"
-
+                
+                android:background="@color/white"
                 android:id="@+id/title_input"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddEditBox"
                 android:hint="Medication name"
+                 />
+            
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:textColor="@color/mutedRed"
+                />
 
 
+            <Button
+                android:id="@+id/addtimeButton"
+                android:onClick="addpopTimePicker"
+                android:background="@drawable/time_button"
+                android:backgroundTint="@color/white"
+                android:textStyle="bold"
+                android:textColor="@color/mutedRed"
+                android:padding="10dp"
 
-                android:inputType="text" />
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="+ Add Time."
 
-            <EditText
-                android:id="@+id/time_input"
+                android:elevation="0dp"
+
+
+                />
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Unit"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:padding="10dp"
+                    android:textColor="@color/mutedRed"
+
+                    />
+
+                <EditText
+                    android:id="@+id/unit_input"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    style="@style/AddEditBox"
+
+                    android:inputType="text" />
+                <Spinner
+                    android:id="@+id/unitAddspinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
 
 
-                android:hint="Mealtime?"
-                android:inputType="text" />
+                    android:background= "@color/white"
+                    android:spinnerMode="dropdown"/>
 
-            <EditText
-                android:id="@+id/pills_input"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Dose"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
 
-                android:hint="# pills"
-                android:inputType="text" />
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:padding="10dp"
+                    android:textColor="@color/mutedRed"
+
+                    />
+
+                <EditText
+                    android:id="@+id/dose_input"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    style="@style/AddEditBox"
+
+                    android:inputType="text" />
+                <Spinner
+                    android:id="@+id/doseAddspinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+
+
+                    android:background= "@color/white"
+                    android:spinnerMode="dropdown"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Inventory"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:padding="10dp"
+                    android:textColor="@color/mutedRed"
+
+                    />
+
+                <EditText
+                    android:id="@+id/pills_input"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    style="@style/AddEditBox"
+
+                    android:inputType="text" />
+                />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Note"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:textColor="@color/mutedRed"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                >
+
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:id="@+id/picture_button"
+
+                    android:layout_marginRight="10dp"
+
+                    />
+
+
+                <EditText
+                    android:id="@+id/note_input"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    style="@style/AddEditBox"
+                    android:hint="Note"
+
+                    android:inputType="text" />
+                />
+
+            </LinearLayout>
+
+
 
             <Button
                 android:id="@+id/add_button"
-
+                android:background="@drawable/login_text_bg"
+                android:backgroundTint="@color/mutedRed"
                 style="@style/ButtonStyle"
                 android:layout_marginTop="22dp"
                 android:text="Add"

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.*;
 
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,34 +35,35 @@ public class RegisterActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //checking none of the fields are empty
-                String user, pass, rpass;
-                user = username_text.getText().toString();
-                pass = password_text.getText().toString();
-                rpass = reTypeP_text.getText().toString();
+                String user = username_text.getText().toString();
+                String pass = password_text.getText().toString();
+                String rpass = reTypeP_text.getText().toString();
 
-                if(user.isEmpty() || pass.isEmpty() || rpass.isEmpty()){
+                if(user.isEmpty() || pass.isEmpty() || rpass.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(pass.equals(rpass)){
-                        if(myDB.checkUserUnique(user)){
+                } else {
+                    if(pass.equals(rpass)) {
+                        if(myDB.checkUserUnique(user)) {
                             Toast.makeText(RegisterActivity.this, "Username is already in use", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        myDB.addUser(user, pass);
+
+                        // Generate salt and hash password
+                        String salt = PasswordHashing.generateSalt();
+                        String hashedPass = PasswordHashing.hashPassword(pass, salt);
+
+                        // Store username, salt, and hashed password
+                        myDB.addUser(user, hashedPass, salt);
+
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
-
-
-
-                    }
-                    else{
+                    } else {
                         Toast.makeText(RegisterActivity.this, "Passwords did not match", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
+
 
         go_to_login_button.setOnClickListener(new View.OnClickListener() {
             @Override

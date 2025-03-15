@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/mutedYellow"
-    tools:context=".WeekViewActivity">
-
-
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,31 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:fontFamily = "monospace"
-
-
-    android:clipToPadding="false"
+    android:background="@color/cream"
 
     tools:context = ".WeekViewActivity"
     >
 
-
-
     <LinearLayout
-        android:paddingHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp">
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:background="@color/mutedYellow"
+        >
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text= "-"
-            android:textColor="@color/black"
-            android:background="@null"
+
+            android:textColor="@color/cream"
+            android:background="@drawable/arrow_left"
             android:textStyle="bold"
             android:onClick="previousWeekAction"
             android:textSize="20sp"/>
@@ -52,10 +37,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:textSize="18sp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textSize="20sp"
             android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/cream"
 
             android:text="Calendar" />
 
@@ -63,95 +48,144 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text= "+"
-            android:textColor="@color/black"
-            android:background="@null"
+
+            android:textColor="@color/cream"
+            android:background="@drawable/arrow_right"
             android:textStyle="bold"
             android:onClick="nextWeekAction"
             android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
-        android:paddingHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:background="@color/mutedYellow"
+
+        android:orientation="horizontal">
         <TextView
-            style = "@style/DayOfWeekTextView"
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="SUN"
-            />
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
         <TextView
-            style = "@style/DayOfWeekTextView"
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="MON"
-            />
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
         <TextView
-            style = "@style/DayOfWeekTextView"
-            android:text="TUE"
-            />
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TUES"
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
         <TextView
-            style = "@style/DayOfWeekTextView"
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="WED"
-            />
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
         <TextView
-            style = "@style/DayOfWeekTextView"
-            android:text="THU"
-            />
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="THUR"
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
         <TextView
-            style = "@style/DayOfWeekTextView"
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="FRI"
-            />
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
         <TextView
-            style = "@style/DayOfWeekTextView"
+            android:layout_width = "0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="SAT"
-            android:layout_marginEnd="0dp"/>
+            android:textColor="@color/cream"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
 
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="30dp"
+        android:background="@color/mutedYellow"
         android:id="@+id/calendarRecylerView"
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginBottom="20dp"
         />
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/calendarbg"
-        android:layout_weight="5">
-
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text= "ADD EVENT"
-        android:textColor="@color/black"
-        android:background="@drawable/addeventbg"
-        android:textStyle="bold"
-        android:paddingHorizontal="18dp"
 
-        android:onClick="newEventAction"
+        android:textAllCaps="false"
         android:layout_gravity="center"
-        android:textSize="15sp"/>
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/login_text_bg"
+        android:backgroundTint="@color/mutedYellow"
+        android:elevation="0dp"
+        android:onClick="newEventAction"
+        android:paddingHorizontal="20dp"
+        android:text="Add Event"
+        android:textColor="@color/cream"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
 
     <ListView
-        android:padding="30dp"
-
+        android:paddingHorizontal="20dp"
         android:id="@+id/eventListView"
         android:layout_width="match_parent"
+        android:divider="@color/cream"
+        android:dividerHeight="10dp"
+
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="30dp"/>
-    </LinearLayout>
+        android:layout_weight="6" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bottomNavigationViewCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        android:translationY="-20dp"
+        android:background="@drawable/navigationbg_calendar"
+
+
+
+        app:elevation="0dp"
+
+
+        app:labelVisibilityMode="unlabeled"
+
+        android:clipToPadding="false"
+
+
+        app:menu="@menu/bottom_nav_menu" />
 
 
 </LinearLayout>
-
-</FrameLayout>

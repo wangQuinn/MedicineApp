@@ -1,41 +1,72 @@
 package com.example.booklibraryapp;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.*;
+import android.Manifest;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.booklibraryapp.calendar.CalendarActivity;
+import com.example.booklibraryapp.calendar.Event;
+import com.example.booklibraryapp.calendar.EventLinkedList;
+import com.example.booklibraryapp.calendar.events.MedicineEvent;
+import com.example.booklibraryapp.calendar.events.RefillEvent;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
 import java.util.*;
 
+/*
+MainActivity, the main screen a user sees after login.
+
+ */
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String CHANNEL_ID = "my_channel";
+    private static final String NOTIFICATION_ID = "1";
+
+    private NotificationManagerCompat notificationManager;
 
     RecyclerView recyclerView;
     FloatingActionButton add_button, calendar_button;
 
     MyDatabaseHelper myDB;
-    ArrayList<String> book_id, book_title, book_author, book_pages;
+    ArrayList<String> book_id, book_title, book_author, book_pages; //for SQL database
     CustomAdapter customAdapter;
-
     ImageView empty_imageView;
     TextView no_data;
 
@@ -51,33 +82,51 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.mutedGreen));
+        }
+
+
         //my stuff
+
         recyclerView = findViewById(R.id.recyclerView);
-        add_button = findViewById(R.id.add_button);
-        calendar_button = findViewById(R.id.calendar_button);
+        //add_button = findViewById(R.id.add_button);
+        //calendar_button = findViewById(R.id.calendar_button);
         empty_imageView = findViewById(R.id.empty_imageView);
         no_data = findViewById(R.id.no_data);
-        add_button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                String userId = getLoggedInUserId();
-
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("USER_ID", userId);
-                startActivity(intent);
-            }
-
-        }) ;
-
-        calendar_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        notificationManager = NotificationManagerCompat.from(this);
+        createNotificationChannel();
 
 
-                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+
+//        add_button.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                String userId = getLoggedInUserId();
+//                showNotification(view);
+//                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+//                intent.putExtra("USER_ID", userId);
+//                startActivity(intent);
+//
+//
+//
+//            }
+//
+//        }) ;
+//
+//        calendar_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                Intent intent = new Intent(MainActivity.this, WeekViewActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         myDB = new MyDatabaseHelper(MainActivity.this);
         book_id = new ArrayList<>();
@@ -85,11 +134,40 @@ public class MainActivity extends AppCompatActivity {
         book_author = new ArrayList<>();
         book_pages = new ArrayList<>();
 
+        myDB.addMedicationTagAssociation(232,22);
+        myDB.deleteMedicationTagAssociation(232,22);
         storeDataInArrays();
         customAdapter = new CustomAdapter(MainActivity.this,this, book_id, book_title, book_author, book_pages);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                return true;
+
+            }
+            else if (itemId == R.id.nav_calendar){
+                startActivity(new Intent(MainActivity.this, WeekViewActivity.class));
+                return true;
+
+            }
+
+            else if (itemId == R.id.nav_add) {
+                String userId = getLoggedInUserId();
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("USER_ID", userId);
+                startActivity(intent);
+                return true;
+            }
+            return false;
+        });
+
+       // bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
     }
 
@@ -172,4 +250,67 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         return sharedPreferences.getString("USER_ID", null);
     }
+
+    private void showNotification(View view) {
+        Intent intent = new Intent(this, MainActivity.class); // intent message of an operation to be perform. aka launch activity
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE); // setGlags preserves the user's expected navigation experience after they open your app using the notification.
+
+        NotificationCompat.Builder builder = null;
+
+
+
+        builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("It's time to take your medication.")
+                .setContentText("Take your medication now.")
+                .setColor(Color.BLUE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setFullScreenIntent(pendingIntent, true)
+                .setSmallIcon(R.drawable.baseline_notification_important_24)
+                .setAutoCancel(true);
+
+
+
+        Notification notification;
+        notification = builder.build();
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+        }
+        else{
+            notificationManager.notify(Integer.parseInt(NOTIFICATION_ID), notification);
+        }
+
+
+
+
+
+    }
+
+    //check if the version is greater than 29 and
+    private void createNotificationChannel(){
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+
+        // Delete existing channel if it exists
+        if (notificationManager.getNotificationChannel(CHANNEL_ID) != null) {
+            notificationManager.deleteNotificationChannel(CHANNEL_ID);
+        }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            CharSequence channelName = "My Channel";
+            String channelDescription = "My Channel Description";
+
+            int importance = NotificationManager.IMPORTANCE_HIGH; // = 4 (because it needs to be heads-up)
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, importance);
+            channel.setDescription(channelDescription);
+
+            notificationManager.createNotificationChannel(channel);
+
+        }
+
+    }
+
+
+
 }

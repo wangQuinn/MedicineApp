@@ -1,13 +1,17 @@
 package com.example.booklibraryapp.calendar;
 
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout; // You need this for eventTypeSpecificLayout
+import android.widget.FrameLayout; // i need this for eventTypeSpecificLayout
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,15 +21,18 @@ import com.example.booklibraryapp.calendar.events.MedicineEvent;
 import com.example.booklibraryapp.calendar.events.RefillEvent;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class EventEditActivity extends AppCompatActivity {
 
-    private EditText eventNameET;
+    private EditText eventNameET, medicineET;
     private TextView eventDateTV, eventTimeTV;
     private String selectedEventType;
-    private FrameLayout eventTypeSpecificLayout;  // The layout for adding specific UI components
-
-    private LocalTime time;
+    private FrameLayout eventTypeSpecificLayout;// The layout for adding specific UI components
+    private Button timeButton;
+    private String time;
+    int hour, minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +40,17 @@ public class EventEditActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_event_edit);
         initWidgets();
-        time = LocalTime.now();
+        time = "00:00";
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
+        //eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
     }
 
     private void initWidgets() {
         eventNameET = findViewById(R.id.eventNameET);
+
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
+        timeButton = findViewById(R.id.timeButton);
         eventTypeSpecificLayout = findViewById(R.id.eventTypeSpecificLayout); // dynamic layout
 
         // Spinner (drop-down box) for selecting event types
@@ -56,7 +65,7 @@ public class EventEditActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedEventType = eventTypes[position];
-                showEventTypeSpecificUI(selectedEventType);  // Call the function to display the correct layout
+                showEventUI(selectedEventType);  // Call the function to display the correct layout
             }
 
             @Override
@@ -66,23 +75,26 @@ public class EventEditActivity extends AppCompatActivity {
         });
     }
 
-    private void showEventTypeSpecificUI(String eventType) {
+    private void showEventUI(String eventType) {
         eventTypeSpecificLayout.removeAllViews(); // Clear previous UI
+
+        int layoutResId = R.layout.layout_medicine_event;
 
         // Show specific UI based on selected event type
         if ("MedicineEvent".equals(eventType)) {
-            // Inflate and add the specific layout for Medicine Event
-            View medicineView = getLayoutInflater().inflate(R.layout.layout_medicine_event, null);
-            eventTypeSpecificLayout.addView(medicineView);
+            layoutResId = MedicineEvent.getEventLayout();
         } else if ("RefillEvent".equals(eventType)) {
-            // Inflate and add the specific layout for Refill Event
-            View refillView = getLayoutInflater().inflate(R.layout.layout_refill_event, null);
-            eventTypeSpecificLayout.addView(refillView);
+            layoutResId = RefillEvent.getEventLayout();
         } else if ("AppointmentEvent".equals(eventType)) {
-            // Inflate and add the specific layout for Appointment Event
-            View appointmentView = getLayoutInflater().inflate(R.layout.layout_appointment_event, null);
-            eventTypeSpecificLayout.addView(appointmentView);
+            layoutResId = AppointmentEvent.getEventLayout();
+
+
+
         }
+
+
+        View eventView = getLayoutInflater().inflate(layoutResId, null);
+        eventTypeSpecificLayout.addView(eventView);
     }
 
     public void saveEventAction(View view) {
@@ -91,14 +103,52 @@ public class EventEditActivity extends AppCompatActivity {
         // Depending on the selected event type, instantiate the appropriate event class
         Event newEvent;
         if ("MedicineEvent".equals(selectedEventType)) {
-            newEvent = new MedicineEvent(eventName, CalendarUtils.selectedDate, time);
+            String frequency = findViewById(R.id.frequencyEdit).toString();
+            EditText notes1 = findViewById(R.id.medicineNotesEdit);
+            String notes = notes1.getText().toString();
+            newEvent = new MedicineEvent(eventName, CalendarUtils.selectedDate, time, frequency, notes);
         } else if ("RefillEvent".equals(selectedEventType)) {
-            newEvent = new RefillEvent(eventName, CalendarUtils.selectedDate, time);
+            String location = findViewById(R.id.locationRefillEdit).toString();
+            EditText insurance1 = findViewById(R.id.insuranceEdit);
+            String insurance = "Under " + insurance1.getText().toString() + "Insurance";
+            newEvent = new RefillEvent(eventName, CalendarUtils.selectedDate, time, location, insurance);
         } else { // AppointmentEvent
-            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time);
+            EditText location1 = findViewById(R.id.locationEdit);
+
+            EditText doctor1 = findViewById(R.id.doctorEdit);
+            String doctor = "At " + location1.getText().toString() + "with" +  doctor1.getText().toString();
+
+
+
+            newEvent = new AppointmentEvent(eventName, CalendarUtils.selectedDate, time, doctor, location1.getText().toString());
         }
 
-        Event.eventsList.add(newEvent);  // Add the new event to the event list
+        if (Event.eventsList == null) {
+            Event.eventsList = new ArrayList<>();  // Initialize the list if it's null
+        }
+
+        Event.eventsList.add(newEvent);  //
         finish();
+    }
+
+    //timepicker
+
+    public void popTimePicker(View view) {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int sHour, int sMinute) {
+                hour = sHour;
+                minute = sMinute;
+                time =String.format(Locale.getDefault(), "%02d:%02d", hour, minute );
+                eventTimeTV.setText(time);
+                            }
+        };
+
+
+            int style = android.R.style.Theme_Holo_Light_Dialog_NoActionBar;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, minute, true );
+
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
     }
 }

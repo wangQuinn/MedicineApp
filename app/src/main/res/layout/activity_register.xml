@@ -4,96 +4,158 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlue"
+    android:background="@color/cream"
+
+
     >
 
-
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:fontFamily = "monospace"
+        android:layout_margin ="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        android:background="@drawable/login_rect_bg"
-        android:backgroundTint="@color/darkBlue"
-        />
+        app:layout_constraintTop_toTopOf="parent">
 
     <TextView
+       android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-
-        style = "@style/Title1"
-        android:text="CREATE YOUR ACCOUNT"
-        android:textColor="@color/white"
+        android:fontFamily="monospace"
+        android:text="register."
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="40dp"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
         />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_prompt"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:text="We won't look :)"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
 
-    <LinearLayout
-        android:padding="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+
+            android:id="@+id/plaster"
+            android:scaleType="centerInside"
+            android:background="@drawable/plaster_1"
+
+            />
+
+
 
         <EditText
             android:id="@+id/userName_text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="236dp"
+            android:alpha=".5"
+            android:background="@drawable/login_text_bg"
+            android:backgroundTint="@color/mutedPurple"
+            android:drawableStart="@drawable/baseline_person_24"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/cream"
+            android:layout_marginTop="30dp"
             android:inputType="text"
-            android:hint = "Username"
-
-            android:paddingLeft="20dp"
-            android:background = "@drawable/register_text_bg"
+            android:fontFamily="monospace"
+            android:editTextColor="@color/black"
+            android:padding="10dp"
              />
+
+
 
         <EditText
             android:id="@+id/passWord_text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:paddingLeft = "20dp"
-            android:inputType="text"
-            android:hint = "Password"
-            android:background = "@drawable/register_text_bg"
+            android:layout_marginTop="30dp"
+            android:alpha=".5"
+            android:backgroundTint="@color/mutedPurple"
+            android:drawableTint="@color/cream"
+            android:background="@drawable/login_text_bg"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="8dp"
+
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:fontFamily="monospace"
+            android:editTextColor="@color/black"
              />
 
         <EditText
             android:id="@+id/retypeP_text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:inputType="text"
-            android:paddingLeft = "20dp"
-            android:background = "@drawable/register_text_bg"
-            android:hint="Retype Password"
+            android:layout_marginTop="30dp"
+            android:alpha=".5"
+            android:backgroundTint="@color/mutedPurple"
+            android:drawableTint="@color/cream"
+            android:background="@drawable/login_text_bg"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="8dp"
+
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:fontFamily="monospace"
+            android:editTextColor="@color/black"
             />
 
         <Button
             android:id="@+id/register_finish_button"
             style = "@style/ButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            android:text="Create Account"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/retypeP_text" />
 
+            android:layout_marginTop="30dp"
+            android:background="@drawable/login_text_bg"
+            android:elevation="0dp"
+            android:text="Log In."
+            app:backgroundTint="@null"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_has_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Have an account?"
+                android:layout_marginRight="-20dp"
+                android:fontFamily="monospace"
+
+                />
+
+            <Button
+                android:id="@+id/register_to_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
+                android:backgroundTint="@android:color/transparent"
+                android:text="Login"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 

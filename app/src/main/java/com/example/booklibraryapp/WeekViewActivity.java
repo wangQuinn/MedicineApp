@@ -4,8 +4,12 @@ import static com.example.booklibraryapp.calendar.CalendarUtils.dateFormatter;
 import static com.example.booklibraryapp.calendar.CalendarUtils.daysInWeekArray;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +22,12 @@ import com.example.booklibraryapp.calendar.CalendarUtils;
 import com.example.booklibraryapp.calendar.Event;
 import com.example.booklibraryapp.calendar.EventAdapter;
 import com.example.booklibraryapp.calendar.EventEditActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class WeekViewActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class WeekViewActivity extends AppCompatActivity implements OnItemListener{
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
@@ -32,6 +37,41 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
         initWidgets();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.mutedYellow));
+        }
+        if (CalendarUtils.selectedDate == null) {
+            CalendarUtils.selectedDate = LocalDate.now();  // Set to current date if not already set
+        }
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationViewCalendar);
+
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                startActivity(new Intent(WeekViewActivity.this, MainActivity.class));
+                return true;
+
+            }
+            else if (itemId == R.id.nav_calendar){
+                startActivity(new Intent(WeekViewActivity.this, WeekViewActivity.class));
+                return true;
+
+            }
+
+            else if (itemId == R.id.nav_add) {
+                String userId = getLoggedInUserId();
+                Intent intent = new Intent(WeekViewActivity.this, AddActivity.class);
+                intent.putExtra("USER_ID", userId);
+                startActivity(intent);
+                return true;
+            }
+            return false;
+        });
 
         setWeekView();
         setEventAdapter();
@@ -47,6 +87,11 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+    }
+
+    public String getLoggedInUserId(){
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        return sharedPreferences.getString("USER_ID", null);
     }
 
 

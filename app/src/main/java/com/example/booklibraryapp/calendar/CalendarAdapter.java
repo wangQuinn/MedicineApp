@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booklibraryapp.OnItemListener;
 import com.example.booklibraryapp.R;
 
 import java.time.LocalDate;
@@ -46,7 +48,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         else{
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             if(date.equals(CalendarUtils.selectedDate)){
-                holder.parentView.setBackgroundColor(Color.LTGRAY);
+                holder.dayOfMonth.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.highlighted_date_circle));
             }
         }
 
@@ -57,10 +59,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         return days.size();
     }
 
-    public interface OnItemListener
-    {
-        void onItemClick(int position, LocalDate date);
-    }
+
 
 }
 

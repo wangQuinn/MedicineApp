@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,8 +10,9 @@
     android:orientation="vertical"
     android:background="@color/white"
 
-    tools:context = ".calendar.CalendarActivity"
+    tools:context = ".CalendarActivity"
     >
+
 
     <Button
         android:layout_width="wrap_content"
@@ -127,10 +130,15 @@
 
     </LinearLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecylerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="750dp"
+        android:layout_gravity="bottom"
+
+        />
+
 
 
 </LinearLayout>
